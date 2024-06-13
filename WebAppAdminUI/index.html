@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <script src="Scripts/bootstrap.js"></script>
+    <script src="Scripts/jquery-3.7.1.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $('#inforow').hide();
+            
+        });
+        function Registra() {
+            
+            var regsoc = $("#txbRegSoc").val();
+            var pIva = $("#txbPiva").val();
+            var address = $("#txbAddress").val();
+            var tel = $("#txbTel").val();
+            var mail = $("#txbMail").val();
+            var requestClient = {};
+            requestClient.RegioneSociale = regsoc;
+            requestClient.Piva = pIva;
+            requestClient.Indirizzo = address;
+            requestClient.Telefono = tel;
+            requestClient.Email = mail;
+
+            $.ajax({                
+                type: 'POST',
+                url: 'http://localhost:64616/api/prova',
+                data: requestClient,
+                dataType: 'json',                
+                success: function (data) {
+                    var result = data;
+                    $("#txbCodice").val(result)
+                    $("#inforow").show()
+
+                },
+                error: function () {
+
+                },
+
+            })
+
+        }
+    </script>
+</head>
+<body>
+    <div class="row m-5">
+        <div class="col-md-3"> </div>
+        <div class="col-md-6">
+        <table width="100%">
+        </div>
+
+        
+        <table>
+
+            <tr class="row">
+                <td class="fw-bold text-center bg-light"> Inserire i dati per l'iscrizione</td>
+                <td class="form-group col-md-6">
+                    <label> Regione Sociale </label>
+                    <input type="text" id="txbRegSoc" name="name" value="" class="form-control" autocomplete="off" />
+
+                </td>
+                <td class="form-group col-md-6">
+                    <label> Partita Iva </label>
+                    <input type="text" id="txbPiva" name="name" value="" class="form-control" autocomplete="off" />
+
+                </td>
+            </tr>
+
+            <tr class="row">
+                <td class="form-group col-md-12">
+                    <label> Indirizzo </label>
+                    <input type="text" id="txbAddress" name="name" value="" class="form-control" autocomplete="off" />
+
+                </td>
+            </tr>
+            <tr class="row">
+                <td class="form-group col-md-6">
+                    <label> Telefono </label>
+                    <input type="text" id="txbTel" name="name" value="" class="form-control" autocomplete="off" />
+
+                </td>
+                <td class="form-group col-md-6">
+                    <label> Email </label>
+                    <input type="text" id="txbMail" name="name" value="" class="form-control" autocomplete="off" />
+
+                </td>
+            </tr>
+            <tr class="row">
+                <td class=" col-md-12">
+                    <input type="button" id="btnRegister" onclick="Registra()" name="name" value="Registrati" class="btn btn-success" style="float:right" />
+                </td>
+            </tr>
+            <tr id="inforow" class="row">
+                <td class="form-group col-md-12">
+                    <label> Codice </label>
+                    <input type="text" id="txbCodice" name="name" value="" class="form-control" autocomplete="off" />
+
+                </td>
+            </tr>
+
+
+        </table>
+    </div>
+    <div class="col-md-3"> </div>
+
+
+
+</body>
+</html>
